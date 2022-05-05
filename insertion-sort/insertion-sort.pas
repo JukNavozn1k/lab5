@@ -1,5 +1,5 @@
 program project1;
-uses crt;
+
 function comparator(c,p:integer) : boolean;
 begin
 // c < p - min to max
