@@ -1,10 +1,17 @@
-var arr: array [0..1000000] of int64;
+var a: array [0..1000000] of int64;
     size,i: longint;
     f,output: text;
 
-function comparator(a,b: longint): boolean;
+function up(a,b: int64): boolean;
+
 begin
-    if (a > b) then comparator:=true else comparator:=false;
+    if a < b then up:=true else up:=false;
+end;
+
+function down(a,b: int64): boolean;
+
+begin
+    if a > b then down:=true else down:=false;
 end;
 
 procedure quick_sort(m,l: longint);
@@ -15,21 +22,21 @@ var i,j: longint;
 begin
     i:=m;
     j:=l;
-    c:=arr[(m+l) div 2];
+    c:=a[(m+l) div 2]; //середина массива
     repeat
-        while arr[i] < c do i+=1;
-        while arr[j] > c do j-=1;
+        while up(a[i], c) do inc(i);
+        while up(c, a[j]) do dec(j);
         if i <= j then 
         begin
-            cahce:=arr[i];
-            arr[i]:=arr[j];
-            arr[j]:=cahce;
-            i+=1;
-            j-=1;
+            cahce:=a[i];
+            a[i]:=a[j];
+            a[j]:=cahce;
+            inc(i);
+            dec(j);
         end;
     until (i > j);
-    if m < j then quick_sort(m, j);
-    if i < l then quick_sort(i, l);
+    if m < j then quick_sort(m, j); //сортировка левых подмассивов
+    if i < l then quick_sort(i, l); //сортировка правых подмассивов
 end;
 
 begin
@@ -38,12 +45,12 @@ begin
     readln(f, size);
     for i:=1 to size do
     begin
-        read(f, arr[i]);
+        read(f, a[i]);
     end;
     quick_sort(1, size);
     close(f);
     assign(output, 'output.txt');
     rewrite(output);
-    for i:=1 to size do write(output, arr[i], ' ');
+    for i:=1 to size do write(output, a[i], ' ');
     close(output);
 end.
