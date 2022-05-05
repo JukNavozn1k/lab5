@@ -2,6 +2,18 @@ var a: array [0..1000000] of int64;
     size,i: longint;
     f,output: text;
 
+function up(a,b: int64): boolean;
+
+begin
+    if a < b then up:=true else up:=false;
+end;
+
+function down(a,b: int64): boolean;
+
+begin
+    if a > b then down:=true else down:=false;
+end;
+
 procedure quick_sort(m,l: longint);
 
 var i,j: longint;
@@ -12,15 +24,15 @@ begin
     j:=l;
     c:=a[(m+l) div 2]; //середина массива
     repeat
-        while a[i] < c do i+=1;
-        while a[j] > c do j-=1;
+        while down(a[i], c) do inc(i);
+        while down(c, a[j]) do dec(j);
         if i <= j then 
         begin
             cahce:=a[i];
             a[i]:=a[j];
             a[j]:=cahce;
-            i+=1;
-            j-=1;
+            inc(i);
+            dec(j);
         end;
     until (i > j);
     if m < j then quick_sort(m, j); //сортировка левых подмассивов

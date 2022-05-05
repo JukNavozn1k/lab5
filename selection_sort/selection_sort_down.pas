@@ -1,13 +1,20 @@
-var a: array [0..1000] of int64;
+var a: array [0..1000] of longint;
     size,i: integer;
     f,output: text;
 
-function comparator(a,b: int64): boolean;
+function up(a,b: longint): boolean;
+
 begin
-    if (a > b) then comparator:=false else comparator:=true;
+    if a > b then up:=true else up:=false;
 end;
 
-procedure sel_sort(a: array of int64; size: integer);
+function down(a,b: longint): boolean;
+
+begin
+    if a < b then down:=true else down:=false;
+end;
+
+procedure sel_sort(a: array of longint; size: integer);
 
 var i, j, min_index: integer;
     cache: int64;
@@ -20,7 +27,7 @@ begin
         min_index:=i;
         for j:=i+1 to size do
         begin
-            if comparator(a[min_index], a[j]) then min_index:=j; 
+            if down(a[min_index], a[j]) then min_index:=j; 
         end;
         cache:=a[i];
         a[i]:=a[min_index];
