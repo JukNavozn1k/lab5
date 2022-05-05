@@ -79,3 +79,4 @@ end;
 Writeln();
   Readln();     
 end.
+// test ахдбща
