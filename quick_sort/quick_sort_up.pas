@@ -10,22 +10,22 @@ end;
 procedure quick_sort(m,l: longint);
 
 var i,j: longint;
-    x,tmp: int64;
+    c,cahce: int64;
 
 begin
     i:=m;
     j:=l;
-    x:=arr[(m+l) div 2];
+    c:=arr[(m+l) div 2];
     repeat
-        while arr[i] < x do inc(i);
-        while arr[j] > x do dec(j);
+        while arr[i] < c do i+=1;
+        while arr[j] > c do j-=1;
         if i <= j then 
         begin
-            tmp:=arr[i];
+            cahce:=arr[i];
             arr[i]:=arr[j];
-            arr[j]:=tmp;
-            inc(i);
-            dec(j);
+            arr[j]:=cahce;
+            i+=1;
+            j-=1;
         end;
     until (i > j);
     if m < j then quick_sort(m, j);
