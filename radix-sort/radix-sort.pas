@@ -26,16 +26,17 @@ begin
      For I := 1 to MaxData do read(f,A[i]);
      close(f);
 end;
-// Вывод массива
+// Вывод массива в файл output.txt
 Procedure WriteArray (A : AType; MaxData : Longint);
-
 Var I : Longint;
     f: text;
-
 begin
-  For I := 1 to MaxData do
-    Write (A [I] : 5);
-  Writeln;
+     assign(f,'output.txt');
+    rewrite(f);
+    for i := 1 to MaxData do begin
+    write(f,A[i],' ');
+    end;
+    close(f);
 end;
 // Очистка карманов
 procedure ClearPockets(MaxData: Longint);
@@ -49,14 +50,14 @@ var i,j,k : Longint;
 begin
 k := 1;
 // Заполнение отрицательными числами
-{for i := 0 to 9 do begin
-for j := MaxData downto 1 do begin
-if PPocket[i,j] <> -1 then begin
-A[k] := PPocket[i,j];
+for i := 9 downto 0 do begin
+for j := 1 to MaxData do begin
+if NPocket[i,j] <> -1 then begin
+A[k] :=-1* NPocket[i,j];
 k := k + 1;
 end;
 end;
-end;}
+end;
 // Заполнение положительными числами
 for i := 0 to 9 do begin
 for j := 1 to MaxData do begin
@@ -80,8 +81,15 @@ ClearPockets(MaxData);
 for i := 1 to MaxData do 
 begin
 Number := A[i];
+if Number >= 0 then begin
 ListNo := Number div divisor mod 10;
 PPocket[ListNo,i] := Number;
+end
+else  begin
+Number := Number * -1;
+ListNo := Number div divisor mod 10;
+NPocket[ListNo,i] := Number;
+end;
 end;
 Fill(A,MaxData);
 divisor := divisor * 10;
@@ -89,12 +97,7 @@ end;
 end;
 
 begin
-  ReadData(Ran,MaxData);
- { Writeln('Unsorted: ');
-  WriteArray(Ran,MaxData);
-  Writeln('Sorted: ');}
-  
+  ReadData(Ran,MaxData);  
   RadixSort(Ran,MaxData);
-  
-WriteArray(Ran,MaxData);
+  WriteArray(Ran,MaxData);
 end.
