@@ -1,13 +1,16 @@
 var a: array [0..1000] of int64;
-    b: array [0..1000] of int64;
-    size: integer;
-    i: integer;
+    size,i: integer;
     f,output: text;
+
+function comparator(a,b: int64): boolean;
+begin
+    if (a > b) then comparator:=true else comparator:=false;
+end;
 
 procedure sel_sort(a: array of int64; size: integer);
 
 var i, j, min_index: integer;
-    min, cache: int64;
+    cache: int64;
 
 begin
     assign(output, 'output.txt');
@@ -17,7 +20,7 @@ begin
         min_index:=i;
         for j:=i+1 to size do
         begin
-            if a[min_index] > a[j] then min_index:=j;
+            if comparator(a[min_index], a[j]) then min_index:=j; 
         end;
         cache:=a[i];
         a[i]:=a[min_index];
