@@ -7,4 +7,4 @@ def create_file(elCount,radius):
         for i in range(elCount):
             s = str(str(random.randint(-abs(radius), abs(radius)))) + ' '
             f.write(s)
-create_file(1000000,1000000000)
+create_file(1000000,10E+9)
