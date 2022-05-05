@@ -1,1 +1,0 @@
-for i := 0 to 9 do begin for j := 1 to MaxData do begin PPocket[i,j] := -1;NPocket[i,j] := -1;end;end;
