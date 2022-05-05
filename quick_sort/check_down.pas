@@ -16,7 +16,7 @@ begin
     close(f);
     for i:=2 to size do
     begin
-        if a[i-1] < a[i] then flag:=true else flag:=false;
+        if a[i-1] > a[i] then flag:=true else flag:=false;
     end;
     if flag=true then writeln('Success!') else writeln('Fault!');
 end.
