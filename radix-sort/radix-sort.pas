@@ -113,4 +113,3 @@ Writeln ('Sorted : ');
 WriteArray (Ran, MaxData);
 Readln();
 end.
-// обама
