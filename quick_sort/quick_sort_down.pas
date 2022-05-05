@@ -24,8 +24,8 @@ begin
     j:=l;
     c:=a[(m+l) div 2]; //середина массива
     repeat
-        while up(a[i], c) do inc(i);
-        while up(c, a[j]) do dec(j);
+        while down(a[i], c) do inc(i);
+        while down(c, a[j]) do dec(j);
         if i <= j then 
         begin
             cahce:=a[i];
