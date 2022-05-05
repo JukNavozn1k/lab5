@@ -13,7 +13,7 @@ Var
    MaxData : Longint;
    PPocket,NPocket : Pocket;
   
-
+// Чтение массива из файла input.txt
 Procedure ReadData (Var A : AType; Var MaxData : Longint);
 
 Var I : Longint;
@@ -26,57 +26,75 @@ begin
      For I := 1 to MaxData do read(f,A[i]);
      close(f);
 end;
-
+// Вывод массива
 Procedure WriteArray (A : AType; MaxData : Longint);
 
 Var I : Longint;
+    f: text;
 
 begin
   For I := 1 to MaxData do
     Write (A [I] : 5);
   Writeln;
 end;
+// Очистка карманов
+procedure ClearPockets(MaxData: Longint);
+var i,j:Longint;
+begin
+for i := 0 to 9 do begin for j := 1 to MaxData do begin PPocket[i,j] := -1;NPocket[i,j] := -1;end;end;
+end;
+// Заполнение массива из карманов
+procedure Fill(Var A: AType;MaxData:Longint);
+var i,j,k : Longint;
+begin
+k := 1;
+// Заполнение отрицательными числами
+{for i := 0 to 9 do begin
+for j := MaxData downto 1 do begin
+if PPocket[i,j] <> -1 then begin
+A[k] := PPocket[i,j];
+k := k + 1;
+end;
+end;
+end;}
+// Заполнение положительными числами
+for i := 0 to 9 do begin
+for j := 1 to MaxData do begin
+if PPocket[i,j] <> -1 then begin
+A[k] := PPocket[i,j];
+k := k + 1;
+end;
+end;
+end;
+end;
+
 
 Procedure RadixSort (Var A : AType; MaxData : Longint);
 Var
 
-  I,J,divisor,ListNo,Number   : Longint;
+  i,j,divisor,ListNo,Number   : Longint;
 begin
-  
-  divisor := 1;
-  While divisor <= 1000 do
-  begin
-    I := 1;
-    While I <= MaxData do
-    begin
-      Number := A [I];
-      ListNo := Number div divisor MOD 10;
-      PPocket[ListNo,i] := Number;
-      I := I + 1;
-    end;
-    for I := 0 to 9 do 
-    begin
-      for J := 1 to MaxData do 
-      begin
-       if PPocket[I,J] <> 0 THEN A[J] := PPocket[I,J];
-        PPocket[I,J] := 0;
-      end;
-    end;
-   
-    divisor := 10 * divisor;
-  end;
+divisor := 1;
+while divisor <= 100 do begin
+ClearPockets(MaxData);
+for i := 1 to MaxData do 
+begin
+Number := A[i];
+ListNo := Number div divisor mod 10;
+PPocket[ListNo,i] := Number;
+end;
+Fill(A,MaxData);
+divisor := divisor * 10;
+end;
 end;
 
 begin
   ReadData(Ran,MaxData);
-  Writeln('Unsorted: ');
+ { Writeln('Unsorted: ');
   WriteArray(Ran,MaxData);
-  Writeln('Sorted: ');
+  Writeln('Sorted: ');}
+  
   RadixSort(Ran,MaxData);
-for e := 1 to MaxData do begin
-Write(Ran[e]);
-end;
-Writeln();
-  Readln();     
+  
+WriteArray(Ran,MaxData);
 end.
-// test ахдбща
