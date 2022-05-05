@@ -36,43 +36,46 @@ begin
     Write (A [I] : 5);
   Writeln;
 end;
+
 Procedure RadixSort (Var A : AType; MaxData : Longint);
 Var
- 
+
   I,J,divisor,ListNo,Number   : Longint;
 begin
-    divisor := 1;
-    while divisor <= 1000000000 do begin
+  
+  divisor := 1;
+  While divisor <= 1000 do
+  begin
     I := 1;
     While I <= MaxData do
     begin
       Number := A [I];
-      if (Number >= 0) then 
-      begin
       ListNo := Number div divisor MOD 10;
-      PPocket[ListNo,I] := Number;
-      end
-      else begin
-      Number := Number * -1;
-      ListNo := Number div divisor MOD 10;
-      NPocket[ListNo,I] := Number;
-      end;  
+      PPocket[ListNo,i] := Number;
       I := I + 1;
     end;
-    For I := 0 to 9 do begin 
-    For J := 1 to MaxData do begin
-    PPocket[I,J] := 0;
-    NPocket[I,J] := 0;
+    for I := 0 to 9 do 
+    begin
+      for J := 1 to MaxData do 
+      begin
+       if PPocket[I,J] <> 0 THEN A[J] := PPocket[I,J];
+        PPocket[I,J] := 0;
+      end;
     end;
-    end;
+   
     divisor := 10 * divisor;
   end;
 end;
 
-
 begin
   ReadData(Ran,MaxData);
+  Writeln('Unsorted: ');
+  WriteArray(Ran,MaxData);
+  Writeln('Sorted: ');
   RadixSort(Ran,MaxData);
-  Writeln('–¿¡Œ“¿≈“!!!');
+for e := 1 to MaxData do begin
+Write(Ran[e]);
+end;
+Writeln();
   Readln();     
 end.
