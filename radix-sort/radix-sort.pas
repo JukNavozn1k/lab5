@@ -73,7 +73,7 @@ end;
 Procedure RadixSort (Var A : AType; MaxData : Longint);
 Var
 
-  i,j,divisor,ListNo,Number   : Longint;
+  i,divisor,ListNo,Number   : Longint;
 begin
 divisor := 1;
 while divisor <= 100 do begin
