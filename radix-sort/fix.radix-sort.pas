@@ -99,6 +99,7 @@ Number := Number * -1;
 ListNo := Number div divisor mod 10;
 NPocket[ListNo,i] := Number;
 end;
+
 end;
 Fill(A,MaxData);
 divisor := divisor * 10;
