@@ -1,6 +1,18 @@
+uses dos;
+
 var a: array [0..1000000] of int64;
-    size,i: longint;
+    size,i,before,after: longint;
     f,output: text;
+    hr,min,sec,sec_100: word;
+
+function fGetTime: LongInt;
+
+var hr,min,sec,sec_100: word;
+
+begin
+    GetTime(hr, min, sec, sec_100);
+    fGetTime := longint(hr)*360000 + longint(min)*6000 + sec*100 + sec_100;
+end;
 
 function up(a,b: int64): boolean;
 
@@ -22,7 +34,7 @@ var i,j: longint;
 begin
     i:=m;
     j:=l;
-    c:=a[(m+l) div 2]; //ÑÐµÑ€ÐµÐ´Ð¸Ð½Ð° Ð¼Ð°ÑÑÐ¸Ð²Ð°
+    c:=a[(m+l) div 2]; //á¥à¥¤¨­  ¬ áá¨¢ 
     repeat
         while up(a[i], c) do inc(i);
         while up(c, a[j]) do dec(j);
@@ -35,11 +47,12 @@ begin
             dec(j);
         end;
     until (i > j);
-    if m < j then quick_sort(m, j); //ÑÐ¾Ñ€Ñ‚Ð¸Ñ€Ð¾Ð²ÐºÐ° Ð»ÐµÐ²Ñ‹Ñ… Ð¿Ð¾Ð´Ð¼Ð°ÑÑÐ¸Ð²Ð¾Ð²
-    if i < l then quick_sort(i, l); //ÑÐ¾Ñ€Ñ‚Ð¸Ñ€Ð¾Ð²ÐºÐ° Ð¿Ñ€Ð°Ð²Ñ‹Ñ… Ð¿Ð¾Ð´Ð¼Ð°ÑÑÐ¸Ð²Ð¾Ð²
+    if m < j then quick_sort(m, j); //á®àâ¨à®¢ª  «¥¢ëå ¯®¤¬ áá¨¢®¢
+    if i < l then quick_sort(i, l); //á®àâ¨à®¢ª  ¯à ¢ëå ¯®¤¬ áá¨¢®¢
 end;
 
 begin
+    before:=fGetTime;
     assign(f, 'input.txt');
     reset(f);
     readln(f, size);
@@ -53,4 +66,6 @@ begin
     rewrite(output);
     for i:=1 to size do write(output, a[i], ' ');
     close(output);
+    after:=fGetTime;
+    writeln('‘®àâ¨à®¢ª  § ­ï«  ', (after - before) / 100:0:2,' á¥ªã­¤ë')
 end.
