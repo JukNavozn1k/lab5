@@ -1,6 +1,19 @@
+uses dos;
+
 var a: array [0..1000] of longint;
     size,i: integer;
     f,output: text;
+    hr,min,sec,sec_100: word;
+    before,after: longint;
+
+function fGetTime: LongInt;
+
+var hr,min,sec,sec_100: word;
+
+begin
+    GetTime(hr, min, sec, sec_100);
+    fGetTime := longint(hr)*360000 + longint(min)*6000 + sec*100 + sec_100;
+end;
 
 function up(a,b: longint): boolean;
 
@@ -38,6 +51,7 @@ begin
 end;
 
 begin
+    before:=fGetTime;
     assign(f, 'input.txt');
     reset(f);
     readln(f, size);
@@ -47,4 +61,6 @@ begin
     end;
     sel_sort(a, size);
     close(f);
+    after:=fGetTime;
+    writeln('Сортировка заняла ', (after - before) / 100:0:2,' секунды');
 end.
