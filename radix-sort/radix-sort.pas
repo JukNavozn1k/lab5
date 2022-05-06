@@ -1,18 +1,18 @@
 
 
 Program SortStuff;
+Uses sysutils, DateUtils;
 
-Uses Crt, Dos;
 
 Type
-    AType = Array [1..1000000] of Longint;
+    AType = Array [1..1000000] of int64;
     Pocket = Array[0..9] of AType;
 
 Var
    Ran    : AType;
    MaxData : Longint;
    PPocket,NPocket : Pocket;
-  
+
 // Чтение массива из файла input.txt
 Procedure ReadData (Var A : AType; Var MaxData : Longint);
 
@@ -76,7 +76,7 @@ Var
   i,divisor,ListNo,Number   : Longint;
 begin
 divisor := 1;
-while divisor <= 100 do begin
+while divisor <= 1000000000 do begin
 ClearPockets(MaxData);
 for i := 1 to MaxData do 
 begin
@@ -97,7 +97,10 @@ end;
 end;
 
 begin
+
   ReadData(Ran,MaxData);  
   RadixSort(Ran,MaxData);
   WriteArray(Ran,MaxData);
+
+
 end.
