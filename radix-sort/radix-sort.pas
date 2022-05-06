@@ -1,5 +1,5 @@
 Program SortStuff;
-Uses sysutils, DateUtils;
+Uses dos;
 
 
 Type
@@ -8,10 +8,17 @@ Type
 
 Var
    Ran    : AType;
-   MaxData : Longint;
+   MaxData,start,stop : Longint;
    PPocket,NPocket : Pocket;
 
-// Чтение массива из файла input.txt
+function fGetTime: LongInt;
+
+var hr,min,sec,sec_100: word;
+
+begin
+    GetTime(hr, min, sec, sec_100);
+    fGetTime := longint(hr)*360000 + longint(min)*6000 + sec*100 + sec_100;
+end;
 Procedure ReadData (Var A : AType; Var MaxData : Longint);
 
 Var I : Longint;
@@ -24,7 +31,7 @@ begin
      For I := 1 to MaxData do read(f,A[i]);
      close(f);
 end;
-// Вывод массива в файл output.txt
+
 Procedure WriteArray (A : AType; MaxData : Longint);
 Var I : Longint;
     f: text;
@@ -36,18 +43,18 @@ begin
     end;
     close(f);
 end;
-// Очистка карманов
+
 procedure ClearPockets(MaxData: Longint);
 var i,j:Longint;
 begin
 for i := 0 to 9 do begin for j := 1 to MaxData do begin PPocket[i,j] := -1;NPocket[i,j] := -1;end;end;
 end;
-// Заполнение массива из карманов
+
 procedure Fill(Var A: AType;MaxData:Longint);
 var i,j,k : Longint;
 begin
 k := 1;
-// Заполнение отрицательными числами
+
 for i := 9 downto 0 do begin
 for j := 1 to MaxData do begin
 if NPocket[i,j] <> -1 then begin
@@ -56,7 +63,7 @@ k := k + 1;
 end;
 end;
 end;
-// Заполнение положительными числами
+
 for i := 0 to 9 do begin
 for j := 1 to MaxData do begin
 if PPocket[i,j] <> -1 then begin
@@ -95,8 +102,10 @@ end;
 end;
 
 begin
-
+  start := fGetTime;
   ReadData(Ran,MaxData);  
   RadixSort(Ran,MaxData);
   WriteArray(Ran,MaxData);
+  stop := fGetTime;
+  Writeln((stop - start) / 100:0:2);
 end.
