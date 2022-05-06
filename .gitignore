@@ -1,3 +1,6 @@
 *.exe
 *.o
 tempCodeRunnerFile.pas
+.gitignore
+radix-sort
+insertion-sort
