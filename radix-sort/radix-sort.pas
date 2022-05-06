@@ -12,7 +12,7 @@ Var
    Ran    : AType;
    MaxData : Longint;
    PPocket,NPocket : Pocket;
-
+  
 // Чтение массива из файла input.txt
 Procedure ReadData (Var A : AType; Var MaxData : Longint);
 
