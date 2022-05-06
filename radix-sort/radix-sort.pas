@@ -1,5 +1,3 @@
-
-
 Program SortStuff;
 
 Uses Crt, Dos;
