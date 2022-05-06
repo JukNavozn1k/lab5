@@ -1,4 +1,4 @@
-program project1;
+program InsertionSort;
 
 function comparator(c,p:integer) : boolean;
 begin
