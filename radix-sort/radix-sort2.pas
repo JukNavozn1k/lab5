@@ -32,7 +32,7 @@ Var I : Longint;
 begin
      assign(f,'output.txt');
     rewrite(f);
-    for i := 1 to MaxData do begin
+    for i := MaxData downto 1 do begin
     write(f,A[i],' ');
     end;
     close(f);
