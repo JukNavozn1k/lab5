@@ -10,9 +10,15 @@ Var
    Ran    : AType;
    MaxData,start,stop : Longint;
    PPocket,NPocket : Pocket;
-   PElCount,NElCount: array[0..9] of LongInt;
 
+function fGetTime: LongInt;
 
+var hr,min,sec,sec_100: word;
+
+begin
+    GetTime(hr, min, sec, sec_100);
+    fGetTime := longint(hr)*360000 + longint(min)*6000 + sec*100 + sec_100;
+end;
 Procedure ReadData (Var A : AType; Var MaxData : Longint);
 
 Var I : Longint;
@@ -41,15 +47,7 @@ end;
 procedure ClearPockets(MaxData: Longint);
 var i,j:Longint;
 begin
-for i := 0 to 9 do begin
-//if (PElCount[i] = 0) and (NElCount[i] = 0) then continue;
-for j := 1 to MaxData do begin 
-PPocket[i,j] := -1;
-NPocket[i,j] := -1;
-end;
-PElCount[i] :=0;
-NElCount[i] := 0;
-end;
+for i := 0 to 9 do begin for j := 1 to MaxData do begin PPocket[i,j] := -1;NPocket[i,j] := -1;end;end;
 end;
 
 procedure Fill(Var A: AType;MaxData:Longint);
@@ -58,7 +56,6 @@ begin
 k := 1;
 
 for i := 9 downto 0 do begin
-if NElCount[i] = 0 then continue;
 for j := 1 to MaxData do begin
 if NPocket[i,j] <> -1 then begin
 A[k] :=-1* NPocket[i,j];
@@ -68,7 +65,6 @@ end;
 end;
 
 for i := 0 to 9 do begin
-if PElCount[i] = 0 then continue;
 for j := 1 to MaxData do begin
 if PPocket[i,j] <> -1 then begin
 A[k] := PPocket[i,j];
@@ -93,13 +89,11 @@ Number := A[i];
 if Number >= 0 then begin
 ListNo := Number div divisor mod 10;
 PPocket[ListNo,i] := Number;
-PElCount[ListNo] := PElCount[ListNo] + 1;
 end
 else  begin
 Number := Number * -1;
 ListNo := Number div divisor mod 10;
 NPocket[ListNo,i] := Number;
-NElCount[ListNo] := NElCount[ListNo] + 1;
 end;
 end;
 Fill(A,MaxData);
@@ -108,9 +102,10 @@ end;
 end;
 
 begin
-
+  start := fGetTime;
   ReadData(Ran,MaxData);  
   RadixSort(Ran,MaxData);
   WriteArray(Ran,MaxData);
-
+  stop := fGetTime;
+  Writeln((stop - start) / 100:0:2);
 end.

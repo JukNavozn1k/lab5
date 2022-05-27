@@ -1,14 +1,14 @@
 program InsertionSort;
 
-function comparator(c,p:longint) : boolean;
+function comparator(c,p:integer) : boolean;
 begin
 // c < p - min to max
 // c > p - max to min
 if (c < p) then comparator := true
 else comparator := false;
 end;
-procedure sort(var a : array of longint;len:longint);
-var i,j,swap :longint;
+procedure sort(var a : array of integer;len:integer);
+var i,j,swap :integer;
 begin
     i := 1;
     while i < len do begin
@@ -28,9 +28,9 @@ begin
     a[i-2] := swap;
     end;
 end;
-var count,i : longint;
+var count,i : integer;
 var f:text;
-var a : array[1..1000] of longint;
+var a : array[1..1000] of integer;
     begin
 
     assign(f,'input.txt');
