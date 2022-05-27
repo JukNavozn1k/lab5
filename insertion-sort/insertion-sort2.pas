@@ -4,7 +4,7 @@ function comparator(c,p:longint) : boolean;
 begin
 // c < p - min to max
 // c > p - max to min
-if (c < p) then comparator := true
+if (c > p) then comparator := true
 else comparator := false;
 end;
 procedure sort(var a : array of longint;len:longint);
